@@ -1,11 +1,10 @@
 # MedSim
 
 ## 🎯 Concept
-MedSim vous plonge dans la peau d’une **aide-soignante**. Découvrez ce que c’est que de prendre soin des patients et de gérer des situations médicales réalistes dans un univers ludique.
+MedSim vous plonge dans la peau d’un **"Personnel Soignant".**. Découvrez ce que c’est que de prendre soin des patients et de gérer des situations médicales réalistes dans un univers ludique.
 
 ## 🩺 Actions possibles
 Dans le jeu, vous pourrez réaliser :  
-- **Incision**  
 - **Massage cardiaque**  
 - **Prescriptions médicales**  
 - **Pose de perfusion / prise de sang / injections pour le diabète**  
