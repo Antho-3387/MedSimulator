@@ -1,23 +1,23 @@
 # MedSim
 
 ## 🎯 Concept
-MedSim vous plonge dans la peau d’un **"Personnel Soignant".**. Découvrez ce que c’est que de prendre soin des patients et de gérer des situations médicales réalistes dans un univers ludique.
+MedSim vous plonge dans la peau d’un **"Personnel Soignant".**. 
 
 ## 🩺 Actions possibles
-Dans le jeu, vous pourrez réaliser :  
-- **Massage cardiaque**  
-- **Prescriptions médicales**  
-- **Pose de perfusion / prise de sang / injections pour le diabète**  
+Dans le jeu, vous pourrez réaliser :    
+- **prise de sang /vaccination**  
 - **Bandages et pansements**
+- **une operation aux scapelle (peut etre)**
 
 ## 🎮 Style et gameplay
 - Gameplay inspiré de **Detective Layton** et **Phoenix Rasing**  
 - Graphismes **2D/3D** (3D utilisée de manière ponctuelle)  
-- Histoire à **découvrir au fil du jeu**
 
 ## 🛠️ Outils utilisés
 - **Unity** pour le développement principal  
 - **Suite Adobe** pour les assets graphiques et animations
+- **maya** pour les modèles 3D
+- **vscode** pour le développement de scripts
 
 ## 👥 Équipe
 - Baptiste Chevrin  
@@ -28,12 +28,10 @@ Dans le jeu, vous pourrez réaliser :
 - Ulysse Prevost Lacaze
 
 ## 🗓️ Démo
-- Démo prévue **fin mai**
+- Démo prévue **21 mai 2026**
 
 ## 🔧 À venir / To-do
 - Le menu  
-- Le scénario (complet)  
-- Les gamemécaniques  
 - La musique  
 - Victoire  
 - Défaite
