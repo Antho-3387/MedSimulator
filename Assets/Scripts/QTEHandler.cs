@@ -85,6 +85,15 @@ public class QTEHandler : MonoBehaviour
                     qteObject.transform.localScale = new Vector3(scale, scale, 1f);
                 }
 
+                if (Input.anyKeyDown && !Input.GetKeyDown(touche))
+                {
+                    combo = 0;
+                    score -= 50;
+                    scoreText.text = score.ToString();
+                    comboText.text = "0";
+                    break;
+                }
+
                 if (Input.GetKeyDown(touche))
                 {
                     combo += 1;
