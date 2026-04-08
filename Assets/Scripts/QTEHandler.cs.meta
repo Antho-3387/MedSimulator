@@ -3,7 +3,14 @@ guid: 122dc505bcd993b4cabbb4afcf0903b6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - monCanvas: {instanceID: 0}
+  - monPrefab: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - sonReussi: {fileID: 8300000, guid: 065d3a6487f7da04c9d9735851bf7227, type: 3}
+  - sonRate: {fileID: 8300000, guid: 80631a6b4a1b69540ac24482a6e7d767, type: 3}
+  - comboText: {instanceID: 0}
+  - scoreText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
