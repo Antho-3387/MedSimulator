@@ -27,7 +27,6 @@ public class PatientStatsManager : MonoBehaviour
     private float criticalTimer = 0f;
     private bool inCritical = false;
 
-    // Proprietes publiques en lecture
     public float Stress => currentStress;
     public float Bpm => currentBpm;
     public float Sys => currentSys;
@@ -35,7 +34,6 @@ public class PatientStatsManager : MonoBehaviour
     public bool InCritical => inCritical;
     public float CriticalProgress => inCritical ? (criticalDuration - criticalTimer) / criticalDuration : 0f;
 
-    // Tension affichee en format "12/8"
     public string TensionDisplay =>
         RoundToFive(currentSys / 10f) + "/" + RoundToFive(currentDia / 10f);
 
@@ -88,7 +86,6 @@ public class PatientStatsManager : MonoBehaviour
         }
     }
 
-    // Appele par StressSpikeController ou SequenceManager
     public void ApplyStressDelta(float delta)
     {
         currentStress = Mathf.Clamp(currentStress + delta, 0f, 100f);
@@ -99,8 +96,7 @@ public class PatientStatsManager : MonoBehaviour
         currentStress = Mathf.Clamp(value, 0f, 100f);
     }
 
-    // Arrondi vers le bas au multiple de 5 le plus proche
-    // ex: 12.3 -> 10, 12.7 -> 10, 15.0 -> 15
+
     public static int RoundToFive(float value)
     {
         return Mathf.FloorToInt(value / 5f) * 5;

@@ -6,7 +6,7 @@ public class BandageLogic : MonoBehaviour
 
     public void CheckBandageQuality(float accuracy)
     {
-        if (accuracy > 0.8f) // Si le tracé est précis à 80%
+        if (accuracy > 0.8f) 
         {
             isBandageCorrect = true;
             Debug.Log("Bandage réussi !");

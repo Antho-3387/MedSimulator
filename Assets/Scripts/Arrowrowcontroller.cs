@@ -4,17 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Remplace la gestion des fleches dans HUDController.
-/// A placer sur le GameObject parent du container de fleches.
-///
-/// Setup prefab ArrowTile :
-///   - GameObject "ArrowTile"
-///       Image (background, taille 52x52, rx via Sprite arrondi)
-///       Image "Border" (enfant, meme taille, Image Type = Sliced)
-///       TextMeshProUGUI "Label" (enfant, centred, 22px, symbol fleche)
-///   - Ajouter le script ArrowTile et assigner les 3 refs dans l'Inspector
-/// </summary>
 public class ArrowRowController : MonoBehaviour
 {
     [Header("References")]
@@ -41,7 +30,6 @@ public class ArrowRowController : MonoBehaviour
 
     void Start()
     {
-        // Abonnement aux events du SequenceManager
         seqManager.OnStepSuccess.AddListener(OnSuccess);
         seqManager.OnStepError.AddListener(OnError);
         seqManager.OnPhaseComplete.AddListener((_) => RebuildRow());
@@ -62,11 +50,10 @@ public class ArrowRowController : MonoBehaviour
 
     void OnError(int step)
     {
-        // Flash rouge sur la tuile courante
+
         if (step < _tiles.Count)
             _tiles[step].SetError();
 
-        // Apres l'animation, la rangee va etre reconstruite par SequenceManager -> OnFailModeEnter
     }
 
     void RebuildRow()
@@ -86,11 +73,9 @@ public class ArrowRowController : MonoBehaviour
             var tile = go.GetComponent<ArrowTile>();
             if (tile == null) tile = go.AddComponent<ArrowTile>();
 
-            // Assigne le symbole
             var txt = go.GetComponentInChildren<TextMeshProUGUI>();
             if (txt) txt.text = sym;
 
-            // Etat initial
             if (i < seqManager.CurrentStep)
                 tile.SetDone();
             else if (i == seqManager.CurrentStep)
@@ -130,6 +115,5 @@ public class ArrowRowController : MonoBehaviour
         }
     }
 
-    // Appel manuel si besoin (ex: au demarrage)
     public void ForceRebuild() => RebuildRow();
 }

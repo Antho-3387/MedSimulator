@@ -2,12 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Branche ce script sur le GameObject HUD.
-/// Assigne les references dans l'Inspector, puis appelle
-/// PatientStatsManager, SequenceManager et StressSpikeController
-/// chaque frame pour mettre a jour l'affichage.
-/// </summary>
+
 public class HUDController : MonoBehaviour
 {
     [Header("References managers")]
@@ -46,7 +41,7 @@ public class HUDController : MonoBehaviour
 
     [Header("Sequences - fleches")]
     public Transform arrowContainer;
-    public GameObject arrowPrefab;     // prefab avec un TextMeshProUGUI
+    public GameObject arrowPrefab;     
     public Color arrowPending  = Color.white;
     public Color arrowActive   = new Color(0.22f, 0.54f, 0.85f);
     public Color arrowDone     = new Color(0.5f, 0.5f, 0.5f);
@@ -93,7 +88,6 @@ public class HUDController : MonoBehaviour
             stressBarFill.color = s > 0.65f ? stressHigh : s > 0.4f ? stressMid : stressLow;
         }
 
-        // Brassard : progression selon la phase
         if (brassardFill)
         {
             float p = seqManager.InFailMode ? 0f :
@@ -140,11 +134,9 @@ public class HUDController : MonoBehaviour
         _lastFailMode = seqManager.InFailMode;
         _lastPhase    = seqManager.CurrentPhase;
 
-        // Vide le container
         foreach (Transform child in arrowContainer)
             Destroy(child.gameObject);
 
-        // Phase label
         if (phaseLabel)
         {
             if (seqManager.InFailMode)
@@ -182,7 +174,6 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    // Appele depuis SequenceManager.OnStepError via l'Inspector
     public void FlashError()
     {
         if (arrowContainer == null) return;

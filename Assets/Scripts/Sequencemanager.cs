@@ -12,7 +12,6 @@ public class SequenceManager : MonoBehaviour
     [Header("Timer")]
     public float totalTime = 60f;
 
-    // ----- Sequences principales (3 phases) -----
     static readonly List<List<KeyCode>> MainSequences = new List<List<KeyCode>>
     {
         new List<KeyCode>{ KeyCode.UpArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.DownArrow,
@@ -23,7 +22,6 @@ public class SequenceManager : MonoBehaviour
                            KeyCode.LeftArrow, KeyCode.DownArrow, KeyCode.DownArrow }
     };
 
-    // ----- Sequences de correction (echec) -----
     static readonly List<List<KeyCode>> FailSequences = new List<List<KeyCode>>
     {
         new List<KeyCode>{ KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.DownArrow,
@@ -32,7 +30,6 @@ public class SequenceManager : MonoBehaviour
                            KeyCode.DownArrow, KeyCode.UpArrow, KeyCode.LeftArrow, KeyCode.LeftArrow }
     };
 
-    // ----- Etat -----
     public int  CurrentPhase   { get; private set; } = 0;
     public int  CurrentStep    { get; private set; } = 0;
     public bool InFailMode     { get; private set; } = false;
@@ -44,14 +41,14 @@ public class SequenceManager : MonoBehaviour
         InFailMode ? FailSequences[FailSeqIndex] : MainSequences[CurrentPhase];
 
     // ----- Events -----
-    public UnityEvent<int, int>  OnStepSuccess;       // phase, step
-    public UnityEvent<int>       OnStepError;          // step
-    public UnityEvent<int>       OnPhaseComplete;      // phase index
+    public UnityEvent<int, int>  OnStepSuccess;      
+    public UnityEvent<int>       OnStepError;         
+    public UnityEvent<int>       OnPhaseComplete;     
     public UnityEvent            OnFailModeEnter;
     public UnityEvent            OnFailModeExit;
     public UnityEvent            OnGameComplete;
     public UnityEvent            OnTimeUp;
-    public UnityEvent<float>     OnTimeTick;           // temps restant
+    public UnityEvent<float>     OnTimeTick;          
 
     // ----- Stress deltas -----
     [Header("Stress changes")]

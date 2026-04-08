@@ -3,12 +3,12 @@ using UnityEngine;
 public class PatientStats : MonoBehaviour
 {
     [Header("Stats de Xeron")]
-    public float bloodLevel = 100f; // 100% au début
-    public float stressLevel = 0f;  // 0% au début
+    public float bloodLevel = 100f; 
+    public float stressLevel = 0f;  
     public bool isBleeding = true;
 
     [Header("Réglages")]
-    public float hemorrhageSpeed = 1.5f; // Perte par seconde
+    public float hemorrhageSpeed = 1.5f; 
 
     void Update()
     {
@@ -19,7 +19,6 @@ public class PatientStats : MonoBehaviour
 
         if (bloodLevel <= 0)
         {
-            // Appeler ici la fonction de Game Over / Coma
             Debug.Log("Xeron est tombé dans le coma...");
         }
     }

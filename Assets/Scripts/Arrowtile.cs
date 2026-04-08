@@ -3,11 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// A placer sur chaque prefab de fleche genere par HUDController.
-/// Gere les etats visuels : normal, actif, succes (transparent), erreur (rouge).
-/// Style : realiste / sombre.
-/// </summary>
 [RequireComponent(typeof(Image))]
 public class ArrowTile : MonoBehaviour
 {
@@ -16,7 +11,6 @@ public class ArrowTile : MonoBehaviour
     public Image          border;
     public TextMeshProUGUI arrowText;
 
-    // ----- Couleurs style sombre -----
     [Header("Couleurs")]
     public Color colorIdle    = new Color(0.12f, 0.14f, 0.16f, 1f);   // fond gris tres sombre
     public Color colorActive  = new Color(0.18f, 0.26f, 0.36f, 1f);   // bleu acier (fleche courante)
@@ -48,10 +42,6 @@ public class ArrowTile : MonoBehaviour
     {
         if (!background) background = GetComponent<Image>();
     }
-
-    // ----------------------------------------------------------------
-    // API publique appelee par HUDController
-    // ----------------------------------------------------------------
 
     public void SetIdle()
     {
@@ -88,9 +78,6 @@ public class ArrowTile : MonoBehaviour
         _anim = StartCoroutine(AnimError());
     }
 
-    // ----------------------------------------------------------------
-    // Animations
-    // ----------------------------------------------------------------
 
     IEnumerator AnimSuccess()
     {
@@ -114,11 +101,9 @@ public class ArrowTile : MonoBehaviour
 
     IEnumerator AnimError()
     {
-        // Flash rouge immediat
         Apply(colorError, borderError, textError);
         yield return new WaitForSeconds(holdErrorDuration);
 
-        // Fondu retour vers idle (la fleche reste en place, on attend la prochaine sequence)
         Color bgStart  = colorError;
         Color brdStart = borderError;
         Color txtStart = textError;
@@ -136,9 +121,7 @@ public class ArrowTile : MonoBehaviour
         Apply(colorIdle, borderIdle, textIdle);
     }
 
-    // ----------------------------------------------------------------
-    // Helpers
-    // ----------------------------------------------------------------
+
 
     void Apply(Color bg, Color brd, Color txt)
     {

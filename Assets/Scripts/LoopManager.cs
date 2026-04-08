@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class LoopManager : MonoBehaviour
 {
-    public static int deathCount = 0; // "static" pour qu'il survive au rechargement de scène
+    public static int deathCount = 0; 
 
     public void OnDeath()
     {
         deathCount++;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // On recommence la boucle
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
     }
 
     public string GetXeronDialogue()

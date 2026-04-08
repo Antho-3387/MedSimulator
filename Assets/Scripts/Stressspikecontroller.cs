@@ -26,8 +26,8 @@ public class StressSpikeController : MonoBehaviour
     public float spikeDecay = 15f;
 
     [Header("Events")]
-    public UnityEvent<float> OnSpikeStart;   // passe l'amplitude
-    public UnityEvent<int>   OnSpikeCountdown; // passe les secondes restantes
+    public UnityEvent<float> OnSpikeStart;   
+    public UnityEvent<int>   OnSpikeCountdown; 
     public UnityEvent        OnSpikeEnd;
 
     public bool SpikeActive { get; private set; }
@@ -51,7 +51,6 @@ public class StressSpikeController : MonoBehaviour
         SpikeActive = false;
     }
 
-    // Appele par SequenceManager quand le joueur agit pendant un pic
     public void AbsorbSpike(float stressReduction)
     {
         if (!SpikeActive) return;
@@ -88,7 +87,6 @@ public class StressSpikeController : MonoBehaviour
             SpikeTimeLeft -= 1f;
         }
 
-        // Pic expire : stress redescend partiellement
         statsManager.ApplyStressDelta(-spikeDecay);
         SpikeActive = false;
         OnSpikeEnd?.Invoke();
