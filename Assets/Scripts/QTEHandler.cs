@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class QTEHandler : MonoBehaviour
 {
-    [Header("Références UI")]
+
+
+    [Header("Références UI")] 
     public Canvas monCanvas;
     public GameObject monPrefab;
     public Text comboText; 
@@ -14,6 +17,7 @@ public class QTEHandler : MonoBehaviour
     [Header("Sons")]
     public AudioClip sonReussi;
     public AudioClip sonRate;
+
     
     [Header("Contrôle Vidéo")]
     public QTEVideoController videoController;
@@ -65,6 +69,13 @@ public class QTEHandler : MonoBehaviour
         {
             audioSource.PlayOneShot(clip, 1f);
         }
+    }
+    bool IsVideoOver()
+    {
+        if (videoController == null || videoController.videoPlayer == null)
+            return false;
+        
+        return videoController.EstTerminee();
     }
 
     IEnumerator AnimateAppearance(GameObject qteObject, Image qteImage, Vector2 finalPosition)
@@ -167,9 +178,8 @@ public class QTEHandler : MonoBehaviour
         int score = 0;
         int combo = 0;
         
-        for (int i = 0; i < 10; i++)
+        while (!IsVideoOver())
         {
-            // PAUSE la vidéo avant chaque QTE
             if (utiliserVideo && videoController != null)
             {
                 videoController.PauseVideo();
@@ -204,7 +214,6 @@ public class QTEHandler : MonoBehaviour
                 timer -= Time.deltaTime;
                 if (qteObject == null) break;
 
-                // Mauvaise touche
                 if (Input.anyKeyDown && !Input.GetKeyDown(touche))
                 {
                     StopCoroutine(pulseCoroutine);
@@ -212,12 +221,10 @@ public class QTEHandler : MonoBehaviour
                     score -= 50;
                     scoreText.text = score.ToString();
                     comboText.text = "0";
-                    audioSource.PlayOneShot(sonRate, 0.25f);
+                    PlaySound(sonRate);
                     
-                    // Animation d'échec
                     yield return StartCoroutine(AnimateFail(qteObject, qteImage));
                     
-                    // RECULE et joue la vidéo brièvement
                     if (utiliserVideo && videoController != null)
                     {
                         yield return StartCoroutine(videoController.JouerReculer(videoController.dureeReculEchec));
@@ -234,14 +241,12 @@ public class QTEHandler : MonoBehaviour
                     if (combo == 1) score += 100;
                     else if (combo == 2) score += 50 * combo - 1;
                     else score += 50 * combo;
-                    audioSource.PlayOneShot(sonReussi, 0.25f);
+                    PlaySound(sonReussi);
                     comboText.text = combo.ToString();
                     scoreText.text = score.ToString();
                     
-                    // Animation de succès
                     yield return StartCoroutine(AnimateSuccess(qteObject, qteImage));
                     
-                    // JOUE la vidéo pendant X secondes
                     if (utiliserVideo && videoController != null)
                     {
                         yield return StartCoroutine(videoController.JouerAvancer(videoController.dureeAvanceSucces));
@@ -253,7 +258,6 @@ public class QTEHandler : MonoBehaviour
                 yield return null;
             }
 
-            // Timeout
             if (timer <= 0 && !actionTaken)
             {
                 StopCoroutine(pulseCoroutine);
@@ -264,7 +268,6 @@ public class QTEHandler : MonoBehaviour
                 
                 yield return StartCoroutine(AnimateFail(qteObject, qteImage));
                 
-                // RECULE pour timeout
                 if (utiliserVideo && videoController != null)
                 {
                     yield return StartCoroutine(videoController.JouerReculer(videoController.dureeReculEchec));
@@ -274,13 +277,10 @@ public class QTEHandler : MonoBehaviour
             if (qteObject != null)
                 Destroy(qteObject);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
         }
 
-        // Fin du jeu - joue la vidéo jusqu'au bout
-        if (utiliserVideo && videoController != null)
-        {
-            videoController.JouerJusquAuBout();
-        }
+        SceneManager.LoadScene (sceneName:"SampleScene");
+
     }
 }
