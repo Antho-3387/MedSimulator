@@ -36,6 +36,6 @@ MonoBehaviour:
     - "Pour gu\xE9rir imm\xE9diatement toutes les maladies"
     - Pour endormir le patient
     - "Pour prot\xE9ger l\u2019organisme contre certaines maladies"
-    - our augmenter la force physique
-    correctReplyIndex: 3
+    - Pour augmenter la force physique
+    correctReplyIndex: 2
     explanation: "Un vaccin entra\xEEne le syst\xE8me immunitaire \xE0 mieux se d\xE9fendre."
