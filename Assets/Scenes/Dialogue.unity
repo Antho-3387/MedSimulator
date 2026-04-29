@@ -1380,7 +1380,7 @@ MonoBehaviour:
   - name: Jean
     sprite: {fileID: -7024655122418681843, guid: a50a6d179856a4b49a8caecc8a6db3fc,
       type: 3}
-  - name: Pablo
+  - name: Anne
     sprite: {fileID: -8359735178526030696, guid: cf7ffecbaa623ef4387295c551e62664,
       type: 3}
   startConversationButton: {fileID: 1671682748}
