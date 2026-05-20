@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]
 public class QTEHandler : MonoBehaviour
 {
-
-
+    
     [Header("Références UI")] 
     public Canvas monCanvas;
     public GameObject monPrefab;
@@ -232,8 +231,7 @@ public class QTEHandler : MonoBehaviour
                     
                     actionTaken = true;
                 }
-
-                // Bonne touche
+                
                 if (Input.GetKeyDown(touche))
                 {
                     StopCoroutine(pulseCoroutine);
@@ -280,7 +278,7 @@ public class QTEHandler : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        SceneManager.LoadScene (sceneName:"SampleScene");
+        SceneManager.LoadScene (sceneName:"Dialogue");
 
     }
 }
