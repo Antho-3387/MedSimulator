@@ -6,17 +6,19 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]
 public class QTEHandler : MonoBehaviour
 {
-    
     [Header("Références UI")] 
     public Canvas monCanvas;
     public GameObject monPrefab;
     public Text comboText; 
     public Text scoreText;
+    public Image patienteBandageImage;
+
+    [Header("Vitesse")]
+    public float playbackSpeed = 1f;
 
     [Header("Sons")]
     public AudioClip sonReussi;
     public AudioClip sonRate;
-
     
     [Header("Contrôle Vidéo")]
     public QTEVideoController videoController;
@@ -28,10 +30,11 @@ public class QTEHandler : MonoBehaviour
     public float failEffectDuration = 0.3f;
 
     private AudioSource audioSource;
+    private Sprite patiente_bandage;
     private Sprite sprite_a;
     private Sprite sprite_e;
     private Sprite sprite_f;
-
+    
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -43,8 +46,17 @@ public class QTEHandler : MonoBehaviour
         sprite_a = Resources.Load<Sprite>("Images/QTE/idee_bouton_a");
         sprite_e = Resources.Load<Sprite>("Images/QTE/idee_bouton_e");
         sprite_f = Resources.Load<Sprite>("Images/QTE/idee_bouton_f");
+        patiente_bandage = Resources.Load<Sprite>("Images/QTE/patiente_bandage");
+
+        if (patienteBandageImage != null)
+            patienteBandageImage.gameObject.SetActive(false);
 
         StartCoroutine(QTE_game());
+
+        if (videoController != null && videoController.videoPlayer != null)
+        {
+            videoController.videoPlayer.playbackSpeed = 2f;
+        }
     }
 
     Sprite choose_sprite()
@@ -69,12 +81,33 @@ public class QTEHandler : MonoBehaviour
             audioSource.PlayOneShot(clip, 1f);
         }
     }
+    
     bool IsVideoOver()
     {
         if (videoController == null || videoController.videoPlayer == null)
             return false;
         
         return videoController.EstTerminee();
+    }
+
+    void HideVideo()
+    {
+        if (videoController != null && videoController.videoPlayer != null)
+            videoController.videoPlayer.gameObject.SetActive(false);
+    }
+
+    void ShowImage()
+    {
+        if (patienteBandageImage != null)
+        {
+            patienteBandageImage.sprite = patiente_bandage;
+            patienteBandageImage.gameObject.SetActive(true);
+        }
+    }
+    
+    void leave()
+    {
+        SceneManager.LoadScene("Dialogue");
     }
 
     IEnumerator AnimateAppearance(GameObject qteObject, Image qteImage, Vector2 finalPosition)
@@ -278,7 +311,9 @@ public class QTEHandler : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        SceneManager.LoadScene (sceneName:"Dialogue");
-
+        HideVideo();
+        ShowImage();
+        yield return new WaitForSeconds(2f);
+        leave();
     }
 }
