@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // ← AJOUTÉ : Pour pouvoir changer de scène
 
 public class CleaningMinigame : MonoBehaviour
 {
@@ -46,6 +47,8 @@ public class CleaningMinigame : MonoBehaviour
 
     void OnCleaned()
     {
-        // Suite du mini-jeu
+        // COCHÉ : Charge la scène principale pour reprendre le dialogue
+        // Remplace "SampleScene" par le nom exact de ta scène de dialogue si nécessaire
+        SceneManager.LoadScene("Dialogue");
     }
 }

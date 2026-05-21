@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -20,20 +21,32 @@ public class DialogueManager : MonoBehaviour
     int activeMessage = 0;
     public static bool isActive = false;
 
+    // Variable statique pour sauvegarder la position entre les scènes
+    public static int savedMessageIndex = -1;
+
     public void OpenDialogue(Message[] messages, Actor[] actors)
     {
         currentMessages = messages;
         currentActors = actors;
         isActive = true;
 
-        // Affiche les deux acteurs dès le début
         leftActorImage.sprite = actors[0].sprite;
         leftActorName.text = actors[0].name;
 
         rightActorImage.sprite = actors[1].sprite;
         rightActorName.text = actors[1].name;
 
-        activeMessage = 0;
+        // Reprise du dialogue là où on s'était arrêté
+        if (savedMessageIndex >= 0)
+        {
+            activeMessage = savedMessageIndex + 1;
+            savedMessageIndex = -1; // Réinitialisation après reprise
+        }
+        else
+        {
+            activeMessage = 0;
+        }
+
         DisplayMessage();
     }
 
@@ -44,8 +57,6 @@ public class DialogueManager : MonoBehaviour
 
         int speaker = messageToDisplay.actorId;
 
-        // Celui qui parle = normal
-        // Celui qui ne parle pas = sombre + transparent
         if (speaker == 0)
         {
             Highlight(leftActorImage);
@@ -58,18 +69,29 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void Highlight(Image img)
-    {
-        img.color = new Color(1f, 1f, 1f, 1f); // normal
-    }
-
-    void Dim(Image img)
-    {
-        img.color = new Color(0.5f, 0.5f, 0.5f, 0.6f); // sombre + transparent
-    }
+    void Highlight(Image img) { img.color = new Color(1f, 1f, 1f, 1f); }
+    void Dim(Image img) { img.color = new Color(0.5f, 0.5f, 0.5f, 0.6f); }
 
     public void NextMessage()
     {
+        // 1. On vérifie SI on est sur un index pivot AVANT de passer au message suivant
+        if (activeMessage == 5) // Après le 6ème message (index 5)
+        {
+            savedMessageIndex = activeMessage;
+            isActive = false; 
+            Invoke("ChangeToDesin", 2f);
+            return;
+        }
+        
+        if (activeMessage == 7) // Après le 9ème message (index 8)
+        {
+            savedMessageIndex = activeMessage;
+            isActive = false; 
+            Invoke("ChangeToQTE", 2f);
+            return;
+        }
+
+        // 2. Sinon, on avance normalement
         activeMessage++;
 
         if (activeMessage < currentMessages.Length)
@@ -78,9 +100,19 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("End of conversation");
+            Debug.Log("Fin de la conversation");
             isActive = false;
         }
+    }
+
+    void ChangeToQTE()
+    {
+        SceneManager.LoadScene("QTE");
+    }
+
+    void ChangeToDesin()
+    {
+        SceneManager.LoadScene("Desinfecter");
     }
 
     void Update()
